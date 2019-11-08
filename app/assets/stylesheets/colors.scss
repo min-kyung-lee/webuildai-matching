@@ -1,0 +1,19 @@
+// Rescue Actions
+// Will come up with naming conventions once I understand the UI
+$colorSend: #7ED321; 
+$colorFail: #D0021B;
+$colorOrange: #F5A623;
+$colorBlue: #4A90E2;
+$colorAdd: #417505;
+$colorAvailable: #5BC0DE;
+$colorComplete: $colorSend; // refactor
+$colorDefault: #9B9A9B;
+
+// $colorCancelReasonCode: #F8E71C;
+
+.orange-text {
+  color: $colorOrange;
+}
+.blue-text {
+  color: $colorBlue;
+}

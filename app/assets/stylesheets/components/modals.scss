@@ -1,0 +1,37 @@
+// Designed modals are slightly different than Bootstrap. Global styling for all will go here.
+// Notes:
+// - Give every modal with a title at the top a modal-header, modal-body, and modal-footer
+// - Make titles H3s
+// - Include .subtitle, if applicable (not a heading)
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-header {
+        border-bottom: none;
+        padding: 20px 20px 0px 20px;
+        h3 {
+
+        }
+        .sub-title {
+          padding-top: 5px;
+          i {
+            font-size: 18px;
+            margin-right: 5px;
+            line-height: normal;
+          }
+        }
+        .close {
+          font-size: 45px;
+        }
+      }
+      .modal-body {
+        .warn-copy {
+          float: right;
+        }
+      }
+      .modal-footer {
+        border-top: none;
+      }
+    }
+  }
+}

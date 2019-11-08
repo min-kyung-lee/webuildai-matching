@@ -1,0 +1,32 @@
+.flex-row {
+  // Purpose: makes columns the same height.
+  // Use with .row for vertically centering components in two columns side by side.
+  @media (min-width: $screen-sm-min) { 
+    display: flex;
+    flex-direction: row;
+    .flex-col {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &.flex-row-always {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+.flex-col-vertical {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  label {
+    margin-bottom: 0px;
+  }
+}
+
+.inline {
+  // Purpose: use this where a div (block level) is more symantically correct than a span (inline)
+  display: inline-block;
+}

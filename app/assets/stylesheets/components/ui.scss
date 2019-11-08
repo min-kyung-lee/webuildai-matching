@@ -1,0 +1,132 @@
+// These components might be frequently used in the UI. Might get separated into different files later.
+
+.pill-dropdown {
+  border-radius: 40px;
+  font-size: 12px;
+  padding: 5px 15px;
+  ul.dropdown-menu {
+
+  }
+}
+
+// buttons
+
+// blue text underline button
+// Used in the bottom of modals, ....
+.btn-underline-text {
+  text-decoration: underline;
+}
+.btn-primary-outline {
+  background: transparent;
+}
+
+.btn-rounded {
+  border-radius: 80px;
+}
+.btn-add-item {
+  padding: 15px 24px;
+  a {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    &:hover {
+      text-decoration: none;
+    }
+    &:active {
+      text-decoration: none;
+    }
+  }
+}
+
+// Icon Styles
+
+.icon-circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  i {
+    &.white {
+      color: #fff;
+    }
+  }
+  &.icon-sm {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    i {
+      font-size: 14px;
+    }
+  }
+  &.icon-md {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    i {
+      font-size: 25px;
+    }
+  }
+  &.blue {
+    background-color: $colorBlue;
+  }
+  &.add {
+    background-color: $colorAdd;
+  }
+  &.left {
+    margin-right: 10px;
+  }
+}
+
+// Forms
+
+.form-group {
+  &.no-margin {
+    margin-bottom: 0;
+  }
+}
+
+.rounded-simple-select {
+  .select2 {
+    border-radius: 100px;
+    .selection {
+      span.select2-selection, span.select2-selection--single{
+        display: flex;
+        align-items: center;
+        border-radius: 16px;
+        height: 40px;
+        &:focus {
+          outline: none;
+        }
+        .select2-selection__arrow {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// badges
+
+.badge {
+  &.fr-badge {
+    // TODO: refactor. Can we target all .badges with this?
+    padding: 5px 15px;
+    font-weight: normal;
+  }
+  &.badge-default {
+    background-color: $colorDefault;
+  }
+  &.badge-available {
+    background-color: $colorAvailable;
+  }
+  &.badge-completed {
+    background-color: $colorComplete;
+  }
+  &.badge-green-outline {
+    background-color: transparent;
+    border: 1px solid $colorComplete;
+    color: $colorComplete;
+  }
+  &.badge-canceled {
+    background-color: $colorFail
+  }
+}

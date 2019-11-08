@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="66px" viewBox="0 0 44 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Pin 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M17.2268,50.167 C2.697,29.1031 0,26.9413 0,19.2 C0,8.5961 8.5961,0 19.2,0 C29.8039,0 38.4,8.5961 38.4,19.2 C38.4,26.9413 35.703,29.1031 21.1732,50.167 C20.2197,51.5444 18.1802,51.5443 17.2268,50.167 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Pin-1" transform="translate(3.000000, 3.000000)">
+            <circle id="Oval-2" stroke="#000000" stroke-width="2" fill="#FFFFFF" cx="19.2" cy="51.2" r="10.8"></circle>
+            <g id="Shape" fill-rule="nonzero">
+                <use fill="#49A14A" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <path stroke="#FFFFFF" stroke-width="2.5" d="M16.1990195,50.8784543 L16.1978519,50.8767646 C13.9120891,47.5630865 5.61221341,35.7370909 4.12443672,33.5086616 C1.31744628,29.3042807 -0.00598510425,26.7923544 -0.680381687,24.2315952 C-1.08235629,22.7052528 -1.25,21.1534876 -1.25,19.2 C-1.25,7.90574406 7.90574406,-1.25 19.2,-1.25 C30.4942559,-1.25 39.65,7.90574406 39.65,19.2 C39.65,21.1534876 39.4823563,22.7052528 39.0803817,24.2315952 C38.4059851,26.7923544 37.0825537,29.3042807 34.2755633,33.5086616 C32.7877866,35.7370909 24.4879109,47.5630865 22.2009698,50.8784698 C20.750424,52.9738886 17.6494933,52.9738368 16.1990195,50.8784543 Z"></path>
+            </g>
+            <text id="PICK-UP" font-family="Helvetica-Bold, Helvetica" font-size="10" font-weight="bold" letter-spacing="-0.089285709" fill="#FFFFFF">
+                <tspan x="7.23277064" y="21">PICK</tspan>
+                <tspan x="12.1434849" y="33">UP</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

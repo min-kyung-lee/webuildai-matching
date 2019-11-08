@@ -1,0 +1,412 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ */
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "scalient/ui/data_table";
+@import "bootstrap-datetimepicker";
+@import "daterangepicker";
+@import "image-picker";
+@import "select2";
+@import "layout.scss";
+@import "variables.scss";
+@import "colors.scss";
+@import "weekly-detail.scss";
+@import "components/*";
+
+a {
+  color: #006400;
+}
+
+h1 {
+  font-size: 1.7em;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+a:hover {
+  color: #003c00;
+  text-decoration: none;
+}
+
+.no-background {
+  background-color: white;
+}
+
+.tight-well {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 300;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.7em;
+  font-size: 14px;
+  padding-top: 50px;
+}
+
+.well-box {
+  border-radius: 4px;
+  border-color: #e6e6e6;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.date-select {
+  display: inline-block;
+  width: 15%;
+}
+
+.pagination {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.digg_pagination {
+  background: white;
+  cursor: default;
+}
+
+.digg_pagination a, .digg_pagination span, .digg_pagination em {
+  padding: 0.2em 0.5em;
+  display: block;
+  float: left;
+  margin-right: 1px;
+  border-radius: 3px;
+}
+
+.digg_pagination .disabled {
+  color: #999999;
+  border: 1px solid #dddddd;
+}
+
+.digg_pagination .current {
+  font-style: normal;
+  font-weight: bold;
+  background: #6b6b6b;
+  color: white;
+  border: 1px solid #6b6b6b;
+}
+
+.digg_pagination a {
+  text-decoration: none;
+  color: #767676  ;
+  border: 1px solid #767676;
+}
+
+.digg_pagination a:hover, .digg_pagination a:focus {
+  color: #6b6b6b;
+  border-color: #6b6b6b;
+}
+
+.digg_pagination:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+* html .digg_pagination {
+  height: 1%;
+}
+
+*:first-child + html .digg_pagination {
+  overflow: hidden;
+}
+
+.card_border{
+  border: 5px solid #f0f5f5;
+  border-radius: 5px;
+
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 15px solid #3498db;
+  width: 60px;
+  height: 60px;
+  margin: 1em auto 0.5em auto;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.font-weight-bold{
+  font-weight: bold;
+}
+
+.icon-container{
+  width: 13%;
+  display: inline-block
+}
+
+.graph-container{
+  width: 80%;
+  display: inline-block;
+}
+
+.graph{
+  display: block;
+  width: 100%;
+}
+
+.scale{
+  font-size: 0.7em;
+  font-weight: 500;
+  margin-bottom: 1em;
+  width: 100%;
+  display: block;
+  text-align: left;
+  color: #B2B2B2;
+}
+
+.icons{
+  img{
+    margin-right: 4px;
+    width:15px;
+    height:15px;
+  }
+  display:inline-block;
+  position: relative;
+}
+
+
+.icons-big{
+  img{
+    margin-right: 0px;
+    width: 80%;
+    height: auto;
+    float:right;
+  }
+}
+
+.icons .tooltiptext {
+    visibility: hidden;
+    font-size: 10px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border: 1px solid #dbdde0;
+    border-radius: 6px;
+    padding: 2px 10px;
+    overflow: visible;
+    white-space: nowrap;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    transform: translateY(100%);
+    margin: 0;
+}
+
+.icons:hover .tooltiptext {
+    visibility: visible;
+}
+
+.progress-bar-success{
+    background-color: white;
+}
+
+.progress{
+    height: 40px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    border-bottom: 2px solid #B2B2B2;
+    span{
+       color: #B2B2B2;
+    }
+
+    .text{
+       overflow: visible;
+       font-size: 0.8em;
+       font-weight: bold;
+       display: block;
+       position: absolute;
+       top: 12px;
+       left: 0px;
+       z-index: 2;
+    }
+    .pointer{
+       overflow: visible;
+       line-height: 1;
+       position: absolute;
+       top: 30px;
+       left: 8px;
+    }
+}
+
+.progress-highlight{
+    border-bottom: 2px solid black;
+    span{
+        color: black;
+    }
+}
+
+.text-highlight{
+    color: black;
+}
+
+
+.progress-bar{
+    height: 40px;
+    position: relative;
+}
+
+
+.small-gutters {
+    margin-right: -5px;
+    margin-left: -5px;
+    > [class*="col-"] {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
+
+.sm-padding{
+  padding-left:10px
+}
+
+.no-padding{
+  padding-left: 0px;
+  padding-right:0px;
+}
+
+.highlight{
+  color:#5D81D1;
+}
+
+.container-detail{
+  margin-top:0.4em;
+  margin-bottom:0.4em;
+
+#total-container {
+  .container-detail{
+  -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+  -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);}
+}
+  
+}
+
+#stakeholder-container{
+  padding-top: 10px;
+  padding-bottom:10px;
+}
+
+.box-shadow{
+  -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+  -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.popover {
+  min-width:600px;
+  padding:0.3em;
+}
+
+.text-secondary{
+  color:#5d5e60;
+}
+
+.bg-white{
+  background-color:white;
+}
+
+.small-dimension{
+  background-color: white;
+  margin:auto 5px;
+  padding: 5px 5px 0px 8px;
+  font-size:0.9em;
+  .col-sm-4{
+    padding: 0px;
+  }
+}
+
+.section-title{
+  font-weight: 600;
+}
+.label-group{
+  display: inline-block;
+  position: relative;
+  .label-badge{
+    border-radius: 5px;
+    font-weight: normal;
+    position: relative;
+    padding: 0.5em 0.6em;
+    color: #262626;
+    font-size: 0.85em;
+    border-style:solid;
+    border-width: 2px;
+
+  }
+  .label-description{
+    position: absolute;
+    border-radius: 0px;
+    bottom: 0;
+    background-color: white;
+    transform: translateY(100%);
+    width: 140%;
+    line-height: 140%;
+    padding: 0.5em 0.7em;
+    font-size: 0.85em;
+    display: none;
+    border-style:solid;
+    border-width: 3px;
+
+  }
+
+}
+
+.label-group + .label-group {
+    margin-left: 0.8em;
+}
+
+
+.vote-image{
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  img{
+    width: 75%;
+    height: 75%;
+    margin-left: 13%;
+    margin-top: 15%;
+  }
+}

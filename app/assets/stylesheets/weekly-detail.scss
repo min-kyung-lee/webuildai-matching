@@ -1,0 +1,159 @@
+// Shared styles for Create New Rescue and "Show" templates:
+.weekly-detail {
+  a {
+    // from mockup. Will this become all links in the web admin (a in application.scss).
+    // TODO 
+    // - cleanup (not all links get this treatment (buttons, dropdowns)
+    // - standardize hover, visited (entire web admin)
+    &.blue-link{
+      color: $colorBlue;
+      text-decoration: underline;
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+  .weekly-detail-header {
+    @media (min-width: $screen-sm-min) {
+      display: flex;
+      align-items: center;
+    }
+    margin: 20px auto 10px auto;
+    h1 {
+      margin: 0 0;
+      display: inline-block;
+    }
+    .fr-badge {
+      &.current-status {
+        // display: non
+        margin: auto 15px;
+      }
+    }
+    .changing-status {
+      display: none;
+      //margin: auto 5px;
+      .save-status-change {
+        margin-left: 10px;
+      }
+      button#new-state {
+        margin: auto 15px;
+      }
+    }
+  }
+}
+
+// Any editable well in the app:
+.well, .form-group {
+  &.editing {
+    box-shadow: 0 0 8px $colorBlue;
+    .toggled {
+      display: block;
+    }
+    .well-label-initial-state {
+      display: none;
+    }
+    .well-label {
+      display: block;
+    }
+    .confirmation-buttons {
+      display: block;
+    }
+    .well-actions {
+      display: none;
+    }
+    .well-form {
+      .field {
+        display: block;
+      }
+      .text {
+        display: none;
+      }
+    }
+  }
+  .toggled {
+    display: none;
+  }
+  .well-label-initial-state {
+    display: block;
+  }
+  .well-label {
+    display: none;
+  }
+  .confirmation-buttons {
+    margin-top: 10px;
+    display: none;
+  }
+  .well-form {
+    .row {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    .field {
+      display: none;
+    }
+    .text {
+      display: block;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      li {
+        a {
+          color: $colorBlue;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  // In instances and templates:
+  .deliverer-search {
+    border-bottom-right-radius: 50px!important;
+    border-top-right-radius: 50px!important;
+    border-radius: 50px;
+    width: 97%;
+  }
+
+
+  #user_search_results {
+    margin-top: 10px;
+    ul {
+      list-style: none;
+      border: 1px solid #ddd;
+      padding-left: 0;
+      li {
+        border-bottom: 1px solid #ddd;
+        a {
+          display: block;
+          color: $colorBlue;
+          background: #fff;
+          padding: 5px 15px;
+        }
+      }
+    }
+  }
+}
+
+#donation-well {
+  .donation-item-form {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    .form-group {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+ // This might be reusable in other modals not in this template, move later if so
+.modal-buttons {
+  // Use for spacing flex'd buttons.
+  flex-wrap: wrap;
+  .btn {
+    margin: 1%;
+    width: 98%;
+    padding: 23px 10px;
+    @media (min-width: $screen-sm-min) {
+      width: 48%;
+    }
+  }
+}

@@ -1,0 +1,157 @@
+:javascript
+
+
+
+
+  $(document).ready(function() {
+
+        $("#load-more").click(function(){
+
+            var next = $('#option_row').data('row')+1
+            console.log(next)
+            if (next!=3){
+              $(`#reclist${next.toString()}`).css("display","block")
+              $('#option_row').data('row',next)
+              $('#receiver_map').data('cutoff',next)
+              showRec()
+            }
+            if (next == 2){
+              $(this).css("display","none")
+            }
+
+        })
+
+        $(".viewdetail").click(function(){
+            var feature_6_range = $('#feature_6_range').data('range');
+            var fvalue = $('#feature_values').data('fvalue');
+            var receiver_data = $(this).children('.detail_data')
+
+            var rid = parseInt(receiver_data.data('rid'))
+            var feature_6 = parseInt(receiver_data.data('feature_6'))
+            var rank = parseInt(receiver_data.data('rank'))
+            var score = parseFloat(receiver_data.data('score'))
+            var vote = receiver_data.data('voteresult')
+
+            $(".viewdetail").each(function(){
+               $(this).css("background-color","#f0f5f5")
+            })
+            $(this).css("background-color","#dbdde0")
+
+
+            if (rid!=="") {
+                $.ajax({
+                        method: "POST",
+                        url: "/receiver_locations/"+rid+"/get_info",
+                        dataType:'html',
+                        data: {feature_6_range:feature_6_range,id:rid,feature_6:feature_6,rank:rank,score:score,vote:vote,fvalue:fvalue},
+                        success: function(response) {
+                            $('#details').html(response);
+                            $('#receiver_map').data('detail',rank);
+                            showRec()
+                            showChart()
+
+
+                        }
+                });
+            }
+
+          });
+
+
+
+
+  });
+
+
+- if !@receiver_locations.nil?
+
+  #receiver_map{ data: { receivers: @receiver_details.to_json,detail: 1,cutoff: 0} }
+  #feature_6_range{data:{range:@sorted_feature_6s.to_json}}
+  #feature_values{data:{fvalue:@all_options.to_json}}
+  #option_row{data:{row: 0}}
+
+  .container{style:"width:100%"}
+    .row
+      .col-lg-12
+        %h3= "Suggested receivers"
+    .row
+      .col-lg-6.small-gutters
+        #details
+          = render template: "receiver_locations/get_info"
+      .col-lg-6.small-gutters
+        %div{id:"map", style:"height:475px; width:100%;margin:1em 0em;position:fixed"}
+    .row
+      .col-lg-12
+        %div{style:"margin-top:1em"}
+          %div{style:"width:100%;display:inline-block;vertical-align:middle",id:"reclists"}
+            -(0...(@receiver_locations.length/4)).each do |i|
+              .row{id:"reclist#{i}",style:"display:#{i == 0 ? "block":"none"};margin-bottom:1em"}
+                - ((i*4)..(i*4+3)).each do |rindex|
+                  -if rindex< @receiver_locations.length
+                    -re = @receiver_locations[rindex]
+                    -re_feature_6 = @feature_6s[re.id]
+                    -receiver_info = re.receiver_analytics.first
+                    -rank = @receiver_locations.index(re)+1
+                    -score = @scores[rank-1].round(2)
+                    -feature_6_r = @sorted_feature_6s.index(re_feature_6)
+                    .col-lg-3
+                      .card{style:"background-color:#f0f5f5; padding: 0.7em; padding-bottom:1em;width:100%",class:"viewdetail"}
+
+                        .detail_data{data: { rid: re.id, feature_6:re_feature_6,rank: rank,score:score,voteresult: @vote_result[re.id].to_json}}
+
+                        .card-body{style:"font-size: 0.8em"}
+                          .row{style: "height: 50px;margin:auto 5px;overflow:hidden"}
+                            .col-sm-9.no-padding{style:"font-size: 1em"}
+                              %b{style:"display:inline-block"} #{rank}. #{re.receiver.name}
+                              - unless re.name.present? and re.name.empty?
+                                %div{style:"display:inline-block;font-size:1em"} (#{re.name})
+                            .col-sm-3.no-padding.text-right{style:"color:grey"} #{score}
+
+
+                          .row.text-secondary.small-dimension{style:"margin-top: 0.5em"}
+                            .col-sm-4
+                              .icons
+                                =image_tag "feature_6.png"
+                                .tooltiptext feature_6
+
+                              %b #{re_feature_6} min
+                            .col-sm-4
+                              .icons
+                                =image_tag "give.png"
+                                .tooltiptext last give time
+                              -if receiver_info.feature_5_time.nil?
+                                %b n/a
+                              -else
+                                %b #{receiver_info.feature_5_time.strftime("%m/%d/%y")}
+                            .col-sm-4
+                              .icons
+                                =image_tag "feature_2.png"
+                                .tooltiptext feature_2
+                              %b ~ #{receiver_info.round_size}
+
+
+                          .row.text-secondary.small-dimension{style:"margin-bottom: 0.5em;padding-bottom: 0.5em"}
+
+                            .col-sm-4
+                              .icons
+                                =image_tag "feature_5.png"
+                                .tooltiptext feature_5 rate
+                              %b #{receiver_info.feature_5_rate}%
+
+                            .col-sm-4
+                              .icons
+                                =image_tag "feature_4.png"
+                                .tooltiptext median feature_4
+                              %b $#{receiver_info.feature_4_display}
+
+
+            .row
+              %div{style:"width: 100%"}
+                .btn.btn-default.btn-sm{id:"load-more", style:"margin-left: 50%; transform: translate(-50%, 0)"}Load More Options
+
+
+
+- else
+  .container
+    .card{style:"padding:1em; margin-top:1em;background-color: #f0f5f5"}
+      %b Sorry, we are unable to find partners that stay open in the next three hours that can handle this item. Try again later.

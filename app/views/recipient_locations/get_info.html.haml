@@ -1,0 +1,214 @@
+
+
+
+-if !@receiver_location.nil?
+
+  .card{style:"width:100%; padding:1em; margin-top:1em;background-color: #f0f5f5",id:"detail_card"}
+    .card-body
+      .row{style:"position: relative"}
+        .col-lg-9
+          %div.font-weight-bold{style:"font-size:1.2em;"}
+            #{params[:rank]}. #{@receiver_location.full_name}
+          %table{style:"color: grey;line-height:1.5;font-size: 0.9em;margin-top: 0.5em;" }
+            %tbody
+              %tr
+              %tr
+
+        .col-lg-3{style:"position: relative"}
+          #score_range{data: { fscore: @feature_ranges["score"][0], score: @score}}
+          .chart-container{style:"position:relative;width:80px;height:80px;margin-left: auto; margin-right:0; position: relative ",onmouseenter:"showStakeholder()",onmouseleave:"hideStakeholder()"}
+            %canvas{id:"myChart",style:"width:80px;height:80px;"}
+            .vote-image{style:"width: 80px;height:80px"}
+              =image_tag "vote.png"
+
+        #stakeholder-container.box-shadow{style:"position: absolute;top: 80px;left: 50%;width: 100%;background-color:white;z-index:2;display:none"}
+          .col-lg-12
+            %b Voter Preference (rank 1-rank #{@feature_ranges["score"][0]})
+          .col-lg-12
+            %table{style:"padding:0px;font-size: 0.9em;color: grey"}
+              %tbody
+                %tr
+                - @stakeholder_rank.sort_by{|s,rank| rank}.each do |person, rank|
+                  %td{style:"color:#{@color_hash[person][1]};font-size:1em;padding-right:0.4em"} ■
+                  %td{style:"padding-right: 1em"} #{@color_hash[person][0]}: #{rank.ordinalize}
+          .col-lg-12
+            .chart-container{style:";position:relative;width:100%;height:50px;background:white"}
+              #voter_preference{data: {rank: @stakeholder_rank.to_json}}
+              %canvas{id:"chart"}
+
+
+
+
+
+      .row{style:"margin-top:10px"}
+        .col-lg-12
+          .section-title Why this option?
+
+        .col-lg-12{style:"position: relative; font-size: 0.9em"}
+          - total_donations = @detail_data["total_donation"]
+          %div{style:"display: inline-block;font-weight: 400"} Total Gives in the last 3 months:
+          %div{style:"display: inline-block;font-weight: 600;color: #5A78B7;text-decoration: underline;",onmouseover:"showBreakdown()",onmouseout:"hideBreakdown()"}  #{total_donations["total"][0]} total, #{total_donations["total"][1]} lbs
+
+          #total-container{style:"width: 100%;display: none; position: absolute; top: 1.5em; left: 0px; z-index: 4;"}
+            .container.container-detail.box-shadow{style:"width: 100%;background-color: white;padding: 10px;"}
+              .row
+                .col-lg-12
+                  %table{style:"font-size: 0.8em;width:100%;border-collapse: collapse;"}
+                    %tbody
+                      %tr
+                        - ["produce","baked_goods","meat","prepared_food","nonperishable","dairy","nonfood","other"].each do |cat|
+                          - value = total_donations[cat]
+                          - if value[0]== 0
+                            %td{style:"font-weight: 600"} #{value[2]}
+                          - else
+                            %td.highlight{style:"font-weight: 600"} #{value[0]} #{value[2]}
+                      %tr
+                        - ["produce","baked_goods","meat","prepared_food","nonperishable","dairy","nonfood","other"].each do |cat|
+                          - value = total_donations[cat]
+                          - if value[0]== 0
+                            %td{style:"padding-bottom:0.5em;"}  #{value[1]} lbs
+                          - else
+                            %td.highlight  #{value[1]} lbs
+      .row
+        .col-lg-12
+          .container.container-detail{style:"width: 100%;background-color: white;padding: 0px 10px; padding-bottom: 10px"}
+            .row.small-gutters.no-padding
+              - ["feature_6","donation","food"].each do |key|
+                - value = @feature_ranges[key]
+                - position = @detail_data[key][1]
+                - data_value = @detail_data[key][0]
+                - progress_class = @highlights.include?(key) ? "progress-highlight" : ""
+                - scale_class = @highlights.include?(key) ? "text-highlight" : ""
+                .col-lg-4
+                  .icon-container
+                    .icons.icons-big{style:"margin-top:20px"}
+                      - if !@highlights.include?(key)
+                        =image_tag "#{key}.png"
+                        - tooltext = @tooltip_hash[key]
+                      - else
+                        =image_tag "#{key}_dark.png"
+                        - tooltext = @tooltip_hash[key]
+                      .tooltiptext #{tooltext}
+                  .graph-container
+                    .graph{style:"width: 100%; margin-right:0px"}
+                      - if data_value == "three more"
+                        .progress{class:"#{progress_class}"}
+                          .progress-bar.progress-bar-success{role:"progressbar","aria-valuenow"=>"100","aria-valuemin"=>"0","aria-valuemax"=>"100",style:"width: 100%;margin-left:0px;"}
+                            %div
+                              %span{style:"overflow:visible;font-size:0.8em;font-weight:bold;position: absolute;width:100%;text-align:center;top:20px;left:0px"} 3+ months ago
+                      - elsif position > 0.8
+                        .progress{class:"#{progress_class}"}
+                          = simple_progress_bar 0.8, alternative: 'success'
+                          .progress-bar.progress-bar-success{role:"progressbar","aria-valuenow"=>"20","aria-valuemin"=>"0","aria-valuemax"=>"100",style:"width: 20%;"}
+                            %div
+                              %span.text #{data_value}
+                              %span.pointer ▼
+
+                      - else
+                        .progress{class:"#{progress_class}"}
+                          = simple_progress_bar position, alternative: 'success'
+                          .progress-bar.progress-bar-success{role:"progressbar","aria-valuenow"=>"20","aria-valuemin"=>"0","aria-valuemax"=>"100",style:"width: 20%"}
+                            %div
+                              %span.text #{data_value}
+                              %span.pointer ▼
+                          = simple_progress_bar 0.8-position, alternative: 'success'
+
+                    .scale{class:"#{scale_class}"}
+                      .col-lg-6.no-padding #{value[0]}
+                      - if key == "feature_4"
+                        .col-lg-6.no-padding{style:"text-align:right"} #{value[1]}
+                      - else
+                        .col-lg-6.no-padding{style:"text-align:right"} #{value[1]}
+
+
+            .row.small-gutters.no-padding{style:"margin-top:1em;"}
+              - ["size","feature_5","feature_4"].each do |key|
+                - value = @feature_ranges[key]
+                - position = @detail_data[key][1]
+                - data_value = @detail_data[key][0]
+                - progress_class = @highlights.include?(key) ? "progress-highlight" : ""
+                - scale_class = @highlights.include?(key) ? "text-highlight" : ""
+                .col-lg-4
+                  .icon-container
+                    .icons.icons-big{style:"margin-top:20px"}
+                      - if !@highlights.include?(key)
+                        =image_tag "#{key}.png"
+                        - tooltext = @tooltip_hash[key]
+                      - else
+                        =image_tag "#{key}_dark.png"
+                        - tooltext = @tooltip_hash[key]
+                      .tooltiptext #{tooltext}
+                  .graph-container
+                    .graph{style:"width: 100%; margin-right:0px"}
+                      - if position > 0.8
+                        .progress{class:"#{progress_class}"}
+                          = simple_progress_bar 0.8, alternative: 'success'
+                          .progress-bar.progress-bar-success{role:"progressbar","aria-valuenow"=>"20","aria-valuemin"=>"0","aria-valuemax"=>"100",style:"width: 20%;"}
+                            %div
+                              %span.text #{data_value}
+                              %span.pointer ▼
+
+                      - else
+                        .progress{class:"#{progress_class}"}
+                          = simple_progress_bar position, alternative: 'success'
+                          .progress-bar.progress-bar-success{role:"progressbar","aria-valuenow"=>"20","aria-valuemin"=>"0","aria-valuemax"=>"100",style:"width: 20%"}
+                            %div
+                              %span.text #{data_value}
+                              %span.pointer ▼
+
+                          = simple_progress_bar 0.8-position, alternative: 'success'
+
+                    .scale{class:"#{scale_class}"}
+                      .col-lg-6.no-padding #{value[0]}
+                      - if key == "feature_4"
+                        .col-lg-6.no-padding{style:"text-align:right"} #{value[1]}
+                      - else
+                        .col-lg-6.no-padding{style:"text-align:right"} #{value[1]}
+
+
+
+      .row{style:"margin-top: 15px;position: relative; display: none"}
+        .col-lg-12
+          - total_donations = @detail_data["total_donation"]
+          %div.section-title{style:"display: inline-block"} Total Donations in the last 3 months:
+          %div{style:"display: inline-block;font-weight: bold;color: #5A78B7;text-decoration: underline;",onmouseover:"showBreakdown()",onmouseout:"hideBreakdown()"}  #{total_donations["total"][0]} total, #{total_donations["total"][1]} lbs
+
+        .col-lg-12#total-container{style:"display: none;position:absolute; top: 0px;left: 50%; z-index: 2;"}
+          .container.container-detail.box-shadow{style:"width: 100%;background-color: white;padding: 10px;"}
+            .row
+              .col-lg-12
+                %table{style:"font-size: 0.8em;width:100%;border-collapse: collapse;"}
+                  %tbody
+                    %tr
+                      - ["produce","baked_goods","meat","prepared_food","nonperishable","dairy","nonfood","other"].each do |cat|
+                        - value = total_donations[cat]
+                        - if value[0]== 0
+                          %td{style:"font-weight: 600"} #{value[2]}
+                        - else
+                          %td.highlight{style:"font-weight: 600"} #{value[0]} #{value[2]}
+                    %tr
+                      - ["produce","baked_goods","meat","prepared_food","nonperishable","dairy","nonfood","other"].each do |cat|
+                        - value = total_donations[cat]
+                        - if value[0]== 0
+                          %td{style:"padding-bottom:0.5em;"}  #{value[1]} lbs
+                        - else
+                          %td.highlight  #{value[1]} lbs
+
+
+      .row{style:"margin-top: 15px"}
+        .col-lg-12.section-title
+          Partner Notes
+      .row
+        .col-lg-12
+          .container.container-detail{style:"width: 100%;background-color: white;padding: 10px"}
+            - @labels.each_with_index do |label,index|
+              .label-group{ onmouseover:"showLabelDescription(#{index})",onmouseout:"hideLabelDescription(#{index})"}
+                .badge.label-badge{style:"background-color: #{label[2]};border-color:#{label[2]}"} #{label[0]}
+                .label-description{id:"description#{index}",style:"border-color: #{label[2]}"} #{label[1]}
+            .label-group
+              .badge.label-badge{style:"background-color: white;border: 2px dotted grey"} + New Label
+
+
+      .row{style:"margin-top: 20px"}
+        .col-lg-4.col-lg-offset-4
+          .btn.btn-default{style:"width: 100%",onclick:"setreceiver(\"#{@receiver_location.id.to_s}\",\"#{@receiver_location.full_name}\"); scrollToNext();return false;"}Choose
